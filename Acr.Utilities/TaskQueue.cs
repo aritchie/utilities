@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Acr.Utilities
 {
-    public class TaskQueue
+    public class TaskQueue : IDisposable
     {
         public int MaxExecutions { get; set; } = 4;
         public int CurrentRunningTasks { get; private set; }
@@ -16,9 +16,16 @@ namespace Acr.Utilities
         CancellationTokenSource cancelSrc;
 
 
-        public void Add(Func<CancellationToken, Task> task)
+        ~TaskQueue()
         {
-            this.tasks.Enqueue(task);
+            this.Dispose(false);
+        }
+
+
+        public void Add(params Func<CancellationToken, Task>[] taskFuncs)
+        {
+            foreach (var func in taskFuncs)
+                this.tasks.Enqueue(func);
         }
 
 
@@ -29,7 +36,7 @@ namespace Acr.Utilities
 
             this.IsRunning = true;
             this.cancelSrc = new CancellationTokenSource();
-            this.Run();
+            this.StartLoop();
         }
 
 
@@ -52,9 +59,9 @@ namespace Acr.Utilities
         }
 
 
-        Task Run()
+        protected virtual void StartLoop()
         {
-            return Task.Run(async () =>
+            Task.Run(async () =>
             {
                 while (!this.cancelSrc.IsCancellationRequested)
                 {
@@ -69,6 +76,20 @@ namespace Acr.Utilities
                     }
                 }
             });
+        }
+
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+            this.Dispose(true);
+        }
+
+
+        protected virtual void Dispose(bool disposing)
+        {
+            this.Stop();
+            this.tasks.Clear();
         }
     }
 }
