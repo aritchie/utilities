@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 
 namespace Acr.Utilities
 {
     public static class StringUtils
     {
+
+        public static bool IsEmpty(this string @string)
+        {
+            return String.IsNullOrWhiteSpace(@string);
+        }
     }
 }
