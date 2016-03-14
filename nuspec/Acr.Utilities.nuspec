@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Acr.Utilities</id>
-        <version>1.0.0</version>
+        <version>0.1.0-beta</version>
         <title>ACR PCL Utility Library</title>
         <description>A number of useful utility functions for PCL development</description>
         <authors>Allan Ritchie</authors>

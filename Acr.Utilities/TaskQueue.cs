@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -69,10 +70,17 @@ namespace Acr.Utilities
                         await Task.Delay(500); // spin
                     else
                     {
+                        Debug.WriteLine("Starting a task");
                         var taskFunc = this.tasks.Dequeue();
                         var run = taskFunc(this.cancelSrc.Token);
                         this.CurrentRunningTasks++;
-                        run.ContinueWith(x => this.CurrentRunningTasks--);
+                        Debug.WriteLine($"Task {this.CurrentRunningTasks} Started");
+
+                        run.ContinueWith(x =>
+                        {
+                            this.CurrentRunningTasks--;
+                            Debug.WriteLine($"Task {this.CurrentRunningTasks} Finished");
+                        });
                     }
                 }
             });

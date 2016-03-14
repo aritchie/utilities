@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Acr.Utilities
 {
-    public class ActionQueue
+    public class ActionQueue : IDisposable
     {
         readonly Queue<Action> actions = new Queue<Action>();
         public bool IsRunning { get; private set; }
@@ -16,9 +16,16 @@ namespace Acr.Utilities
         CancellationTokenSource cancelSrc;
 
 
-        public void Add(Action action)
+        ~ActionQueue()
         {
-            this.actions.Enqueue(action);
+            this.Dispose(false);
+        }
+
+
+        public void Add(params Action[] actionArray)
+        {
+            foreach (var action in actionArray)
+                this.actions.Enqueue(action);
         }
 
 
@@ -39,6 +46,7 @@ namespace Acr.Utilities
                 return;
 
             this.IsRunning = false;
+            this.cancelSrc?.Cancel();
         }
 
 
@@ -51,9 +59,9 @@ namespace Acr.Utilities
         }
 
 
-        Task Run()
+        void Run()
         {
-            return Task.Run(async () =>
+            Task.Run(async () =>
             {
                 while (!this.cancelSrc.IsCancellationRequested)
                 {
@@ -78,6 +86,19 @@ namespace Acr.Utilities
                     }
                 }
             });
+        }
+
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
+
+        protected virtual void Dispose(bool disposing)
+        {
+            this.actions.Clear();
+            this.cancelSrc?.Cancel();
         }
     }
 }
