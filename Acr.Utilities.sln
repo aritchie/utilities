@@ -8,9 +8,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4FCDC688-C033-42C8-8640-E2D8C6945C3D}"
 	ProjectSection(SolutionItems) = preProject
 		nuspec\Acr.Utilities.nuspec = nuspec\Acr.Utilities.nuspec
+		LICENSE.md = LICENSE.md
 		nuspec\nuget.exe = nuspec\nuget.exe
 		nuspec\pack.cmd = nuspec\pack.cmd
 		nuspec\push.cmd = nuspec\push.cmd
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.Utilities.Tests", "Acr.Utilities.Tests\Acr.Utilities.Tests.csproj", "{F0E6554F-1459-43FB-875F-37D14F7623EA}"
