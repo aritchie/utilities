@@ -15,11 +15,21 @@ namespace Acr.Utilities
 
         readonly Queue<Func<CancellationToken, Task>> tasks = new Queue<Func<CancellationToken, Task>>();
         CancellationTokenSource cancelSrc;
+        TaskCompletionSource<object> tcs;
 
 
         ~TaskQueue()
         {
             this.Dispose(false);
+        }
+
+
+        public Task AwaitAll()
+        {
+            if (this.tcs == null)
+                return Task.FromResult<object>(null);
+
+            return this.tcs.Task;
         }
 
 
@@ -64,10 +74,15 @@ namespace Acr.Utilities
         {
             Task.Run(async () =>
             {
+                this.tcs = new TaskCompletionSource<object>();
+
                 while (!this.cancelSrc.IsCancellationRequested)
                 {
                     if (this.tasks.Count == 0 || this.CurrentRunningTasks >= this.MaxExecutions)
+                    {
+                        this.tcs.TrySetResult(null);
                         await Task.Delay(500); // spin
+                    }
                     else
                     {
                         Debug.WriteLine("Starting a task");

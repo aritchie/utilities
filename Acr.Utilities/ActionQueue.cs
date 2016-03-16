@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -42,7 +43,7 @@ namespace Acr.Utilities
 
         public void Stop()
         {
-            if (this.IsRunning)
+            if (!this.IsRunning)
                 return;
 
             this.IsRunning = false;
@@ -66,17 +67,23 @@ namespace Acr.Utilities
                 while (!this.cancelSrc.IsCancellationRequested)
                 {
                     if (this.actions.Count == 0)
+                    {
+                        Debug.WriteLine("No action items");
                         await Task.Delay(500); // spin
+                    }
                     else
                     {
                         var action = this.actions.Dequeue();
                         try
                         {
+                            Debug.WriteLine("Action executing");
                             this.IsExecutingAction = true;
                             action();
+                            Debug.WriteLine("Action completed successfully");
                         }
                         catch (Exception ex)
                         {
+                            Debug.WriteLine($"Error executing action - {ex}");
                             this.Error?.Invoke(this, ex);
                         }
                         finally
