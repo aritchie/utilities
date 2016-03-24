@@ -25,5 +25,11 @@ namespace Acr.Utilities
                 .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                 .ToArray();
         }
+
+
+        public static string ToHexString(this byte[] bytes)
+        {
+            return String.Concat(bytes.Select(b => b.ToString("X2")));
+        }
     }
 }
