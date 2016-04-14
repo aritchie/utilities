@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionQueue.cs" />
+    <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="StringUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
