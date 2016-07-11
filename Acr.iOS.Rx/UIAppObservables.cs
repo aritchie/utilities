@@ -1,56 +1,52 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
+using System.Linq;
+using System.Reactive.Linq;
+using Foundation;
+using UIKit;
+
 
 namespace Acr.iOS.Rx
 {
-    class UIAppObservables
+    public static class UIAppObservables
     {
-    }
-}
-/*
-public IObservable<CultureInfo> WhenCultureChanged()
+
+        public static IObservable<object> WhenEnteringForeground(this UIApplication app)
+        {
+            return Observable.Create<object>(ob =>
+                UIApplication
+                    .Notifications
+                    .ObserveWillEnterForeground((sender, args) => ob.OnNext(null))
+            );
+        }
+
+
+        public static IObservable<object> WhenEnteringBackground()
+        {
+            return Observable.Create<object>(ob =>
+                 UIApplication
+                    .Notifications
+                    .ObserveDidEnterBackground((sender, args) => ob.OnNext(null))
+            );
+        }
+
+
+        public static IObservable<CultureInfo> WhenCultureChanged(this UIApplication app)
         {
             return Observable.Create<CultureInfo>(ob =>
                 NSLocale
                     .Notifications
                     .ObserveCurrentLocaleDidChange((sender, args) =>
                     {
-                        var culture = this.GetSystemCultureInfo();
+                        var culture = GetSystemCultureInfo();
                         ob.OnNext(culture);
                     })
             );
         }
 
 
-        public IObservable<object> WhenEnteringForeground()
-        {
-            return Observable.Create<object>(ob =>
-            {
-                var token = UIApplication
-                    .Notifications
-                    .ObserveWillEnterForeground((sender, args) => ob.OnNext(null));
-
-                return () => token.Dispose();
-            });
-        }
-
-
-        public IObservable<object> WhenEnteringBackground()
-        {
-            return Observable.Create<object>(ob =>
-            {
-                var token = UIApplication
-                    .Notifications
-                    .ObserveDidEnterBackground((sender, args) => ob.OnNext(null));
-
-                return () => token.Dispose();
-            });
-        }
-
-
         // taken from https://developer.xamarin.com/guides/cross-platform/xamarin-forms/localization/ with modifications
-        protected virtual CultureInfo GetSystemCultureInfo()
+        public static CultureInfo GetSystemCultureInfo()
         {
             try
             {
@@ -87,4 +83,17 @@ public IObservable<CultureInfo> WhenCultureChanged()
                 return CultureInfo.CurrentUICulture;
             }
         }
+    }
+}
+/*
+
+
+
+
+
+
+
+
+
+
      */
