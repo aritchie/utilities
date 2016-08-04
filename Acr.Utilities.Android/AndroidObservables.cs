@@ -2,12 +2,19 @@ using System;
 using System.Reactive.Linq;
 using Android.App;
 using Android.Content;
+using Android.Content.Res;
 
 
 namespace Acr.Android.Rx
 {
     public static class AndroidObservables
     {
+        public static IObservable<Configuration> WhenConfigurationChanged()
+        {
+            return WhenIntentReceived(Intent.ActionConfigurationChanged)
+                .Select(intent => Application.Context.Resources.Configuration);
+        }
+
 
         public static IObservable<Intent> WhenIntentReceived(string intentAction)
         {
