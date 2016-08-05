@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.Utilties.iOS", "Acr.Uti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.Utilities.Android", "Acr.Utilities.Android\Acr.Utilities.Android.csproj", "{58BB28E8-35D6-4107-BDB3-86744B958F18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Plugins.Geolocator.Extensions", "Xamarin.Plugins.Geolocator.Extensions\Xamarin.Plugins.Geolocator.Extensions.csproj", "{23C8A8F3-F591-4D26-89BA-0B9CA66A7C75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{58BB28E8-35D6-4107-BDB3-86744B958F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58BB28E8-35D6-4107-BDB3-86744B958F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58BB28E8-35D6-4107-BDB3-86744B958F18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23C8A8F3-F591-4D26-89BA-0B9CA66A7C75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23C8A8F3-F591-4D26-89BA-0B9CA66A7C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23C8A8F3-F591-4D26-89BA-0B9CA66A7C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23C8A8F3-F591-4D26-89BA-0B9CA66A7C75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
