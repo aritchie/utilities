@@ -8,7 +8,7 @@
     <ProjectGuid>{5125916E-C002-400E-81BC-BE63E04734DA}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>Acr.Utilities.iOS</RootNamespace>
+    <RootNamespace>Acr.Utilities</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Acr.Utilities.iOS</AssemblyName>
   </PropertyGroup>
@@ -40,8 +40,9 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UIApplicationObservables.cs" />
+    <Compile Include="UIDeviceObservables.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

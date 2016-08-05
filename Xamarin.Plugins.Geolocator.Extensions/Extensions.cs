@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive.Linq;
 using Acr.Utilities;
 using GeoCoordinatePortable;
@@ -14,52 +15,78 @@ namespace Xamarin.Plugins.Geolocator.Extensions
             return Observable.Create<Distance>(ob =>
             {
                 ob.OnNext(Distance.Empty);
-                GeoCoordinate lastPosition = null;
+                Distance currentSpeed = null;
 
-                Observable
-                    .Interval(TimeSpan.FromSeconds(1))
+                // need to be calculating speed roughly every second, if
+                // values aren't coming in, assume zero
+                var timer = Observable
+                    .Interval(TimeSpan.FromSeconds(2))
                     .Subscribe(x =>
                     {
-                        // broadcast zero if new coordinate hasn't come in?
-                        //if (lastPosition == null)
-                    });
-                var changed = Observable
-                    .FromEventPattern<PositionEventArgs>(locator, "PositionChanged")
-                    .Throttle(TimeSpan.FromSeconds(1))
-                    .Select(x => x.EventArgs.Position)
-                    .Subscribe(x =>
-                    {
-                        var current = new GeoCoordinate(x.Latitude, x.Longitude);
-                        if (lastPosition == null)
+                        if (currentSpeed != null)
                         {
-                            lastPosition = current;
+                            ob.OnNext(currentSpeed);
+                            currentSpeed = null;
                             return;
                         }
-                        var distKm = Convert.ToDouble(lastPosition.GetDistanceTo(current));
-                        var dist = Distance.FromKilometers(distKm); // distance over the last second
-                        lastPosition = current;
+                        ob.OnNext(Distance.Empty);
+                    });
 
-                        ob.OnNext(dist);
+                var gps = Observable
+                    .FromEventPattern<PositionEventArgs>(locator, "PositionChanged")
+                    .Select(x => new Geolocation(x.EventArgs.Position.Latitude, x.EventArgs.Position.Longitude))
+                    .Buffer(2)
+                    .Subscribe(coords =>
+                    {
+                        var first = coords.First();
+                        var second = coords.Last();
+                        var ts = second.Timestamp.Subtract(first.Timestamp);
+                        var distKm = first.Coordinate.GetDistanceTo(second.Coordinate);
+                        var speedKm = distKm / ts.TotalSeconds;
+                        currentSpeed = Distance.FromKilometers(speedKm);
                     });
 
                 locator.DesiredAccuracy = 200;
                 if (!locator.IsListening)
                     locator.StartListeningAsync(1000, 200, false);
 
-                return changed;
+                return () =>
+                {
+                    timer.Dispose();
+                    gps.Dispose();
+                };
             });
         }
 
 
-        public static IObservable<Distance> DerivedOdometer(this IGeolocator locator, int startingOdo = 0)
+        public static IObservable<Distance> DerivedOdometer(this IGeolocator locator, Distance startingOdo = null)
         {
             return Observable.Create<Distance>(ob =>
             {
+                var odometerKm = startingOdo.TotalKilometers;
+                GeoCoordinate startTrip = null;
+
+                var gps = Observable
+                    .FromEventPattern<PositionEventArgs>(locator, "PositionChanged")
+                    .Select(x => new GeoCoordinate(x.EventArgs.Position.Latitude, x.EventArgs.Position.Longitude))
+                    .Subscribe(coords =>
+                    {
+                        if (startTrip == null)
+                            startTrip = coords;
+                        else
+                        {
+                            var distKm = startTrip.GetDistanceTo(coords);
+                            var currentOdoKm = odometerKm + distKm; // don't accumulate
+                            var dist = Distance.FromKilometers(currentOdoKm);
+                            ob.OnNext(dist);
+                        }
+                    });
+
                 locator.DesiredAccuracy = 200;
                 if (!locator.IsListening)
                     locator.StartListeningAsync(1000, 200, false);
 
-                return () => { };
+                return gps;
             });
         }
     }
