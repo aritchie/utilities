@@ -89,5 +89,26 @@ namespace Xamarin.Plugins.Geolocator.Extensions
                 return gps;
             });
         }
+
+
+        public static IObservable<Distance> WhenGpsDriftDetected(this IGeolocator locator, Distance maxDistance, TimeSpan timeSpan)
+        {
+            return Observable.Create<Distance>(ob =>
+                Observable
+                    .FromEventPattern<PositionEventArgs>(locator, "PositionChanged")
+                    .Select(x => new GeoCoordinate(x.EventArgs.Position.Latitude, x.EventArgs.Position.Longitude))
+                    .Buffer(timeSpan)
+                    .Where(x => x.Count > 1)
+                    .Subscribe(coords =>
+                    {
+                        var distKm = coords.First().GetDistanceTo(coords.Last());
+                        if (distKm >= maxDistance.TotalKilometers)
+                        {
+                            var dist = Distance.FromKilometers(distKm);
+                            ob.OnNext(dist);
+                        }
+                    })
+            );
+        }
     }
 }
