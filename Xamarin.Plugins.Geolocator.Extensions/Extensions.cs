@@ -41,8 +41,8 @@ namespace Xamarin.Plugins.Geolocator.Extensions
                         var first = coords.First();
                         var second = coords.Last();
                         var ts = second.Timestamp.Subtract(first.Timestamp);
-                        var distKm = first.Coordinate.GetDistanceTo(second.Coordinate);
-                        var speedKm = distKm / ts.TotalSeconds;
+                        var distMeters = first.Coordinate.GetDistanceTo(second.Coordinate);
+                        var speedKm = Distance.FromMeters(distMeters).TotalKilometers / ts.TotalSeconds;
                         currentSpeed = Distance.FromKilometers(speedKm);
                     });
 
@@ -75,8 +75,8 @@ namespace Xamarin.Plugins.Geolocator.Extensions
                             startTrip = coords;
                         else
                         {
-                            var distKm = startTrip.GetDistanceTo(coords);
-                            var currentOdoKm = odometerKm + distKm; // don't accumulate
+                            var distMeters = startTrip.GetDistanceTo(coords);
+                            var currentOdoKm = odometerKm + Distance.FromMeters(distMeters).TotalKilometers; // don't accumulate
                             var dist = Distance.FromKilometers(currentOdoKm);
                             ob.OnNext(dist);
                         }
