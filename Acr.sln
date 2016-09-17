@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.Core.Tests", "Acr.Core.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.Rx.Tests", "Acr.Rx.Tests\Acr.Rx.Tests.csproj", "{59EC9564-97C7-42FD-8EDC-AAB601C26406}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Plugins.Geolocator.Extensions.Tests", "Xamarin.Plugins.Geolocator.Extensions.Tests\Xamarin.Plugins.Geolocator.Extensions.Tests.csproj", "{CAD5D5A1-4099-44E5-8611-451DB610579A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{59EC9564-97C7-42FD-8EDC-AAB601C26406}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59EC9564-97C7-42FD-8EDC-AAB601C26406}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59EC9564-97C7-42FD-8EDC-AAB601C26406}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAD5D5A1-4099-44E5-8611-451DB610579A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAD5D5A1-4099-44E5-8611-451DB610579A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAD5D5A1-4099-44E5-8611-451DB610579A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAD5D5A1-4099-44E5-8611-451DB610579A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
