@@ -14,5 +14,8 @@ namespace Acr.Core
 
         public double Value { get; }
         public DistancetUnit Unit { get; }
+
+
+public static Distance(double value, DistanceUnit from, DistanceUnit to) {}
     }
 }
