@@ -41,8 +41,8 @@ namespace Xamarin.Plugins.Geolocator.Extensions
                         var first = coords.First();
                         var second = coords.Last();
                         var ts = second.Timestamp.Subtract(first.Timestamp);
-                        var distKm = first.Coordinate.GetDistanceTo(second.Coordinate);
-                        var speedKm = distKm / ts.TotalSeconds;
+                        var distMeters = first.Coordinate.GetDistanceTo(second.Coordinate);
+                        var speedKm = Distance.FromMeters(distMeters).TotalKilometers / ts.TotalSeconds;
                         currentSpeed = Distance.FromKilometers(speedKm);
                     });
 
@@ -75,8 +75,8 @@ namespace Xamarin.Plugins.Geolocator.Extensions
                             startTrip = coords;
                         else
                         {
-                            var distKm = startTrip.GetDistanceTo(coords);
-                            var currentOdoKm = odometerKm + distKm; // don't accumulate
+                            var distMeters = startTrip.GetDistanceTo(coords);
+                            var currentOdoKm = odometerKm + Distance.FromMeters(distMeters).TotalKilometers; // don't accumulate
                             var dist = Distance.FromKilometers(currentOdoKm);
                             ob.OnNext(dist);
                         }
@@ -88,6 +88,27 @@ namespace Xamarin.Plugins.Geolocator.Extensions
 
                 return gps;
             });
+        }
+
+
+        public static IObservable<Distance> WhenGpsDriftDetected(this IGeolocator locator, Distance maxDistance, TimeSpan timeSpan)
+        {
+            return Observable.Create<Distance>(ob =>
+                Observable
+                    .FromEventPattern<PositionEventArgs>(locator, "PositionChanged")
+                    .Select(x => new GeoCoordinate(x.EventArgs.Position.Latitude, x.EventArgs.Position.Longitude))
+                    .Buffer(timeSpan)
+                    .Where(x => x.Count > 1)
+                    .Subscribe(coords =>
+                    {
+                        var distKm = coords.First().GetDistanceTo(coords.Last());
+                        if (distKm >= maxDistance.TotalKilometers)
+                        {
+                            var dist = Distance.FromKilometers(distKm);
+                            ob.OnNext(dist);
+                        }
+                    })
+            );
         }
     }
 }
