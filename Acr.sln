@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4FCDC688-C033-42C8-8640-E2D8C6945C3D}"
+	ProjectSection(SolutionItems) = preProject
+		nuspec\Acr.Core.nuspec = nuspec\Acr.Core.nuspec
+		nuspec\Acr.Rx.Android.nuspec = nuspec\Acr.Rx.Android.nuspec
+		nuspec\Acr.Rx.iOS.nuspec = nuspec\Acr.Rx.iOS.nuspec
+		nuspec\Acr.Rx.nuspec = nuspec\Acr.Rx.nuspec
+		LICENSE.md = LICENSE.md
+		nuspec\nuget.exe = nuspec\nuget.exe
+		nuspec\pack.cmd = nuspec\pack.cmd
+		nuspec\push.cmd = nuspec\push.cmd
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Plugins.Geolocator.Extensions", "Xamarin.Plugins.Geolocator.Extensions\Xamarin.Plugins.Geolocator.Extensions.csproj", "{23C8A8F3-F591-4D26-89BA-0B9CA66A7C75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.Core", "Acr.Core\Acr.Core.csproj", "{0CD76D31-3028-4813-9119-19A2674A4924}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.Rx", "Acr.Rx\Acr.Rx.csproj", "{62D1AABE-5432-4434-8324-1C843FA6AFB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.Rx.iOS", "Acr.Rx.iOS\Acr.Rx.iOS.csproj", "{AA43A7ED-9B83-42A3-90A5-058FEA27C5F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.Rx.Android", "Acr.Rx.Android\Acr.Rx.Android.csproj", "{0FB80449-A5FB-447E-BF96-C6619998831F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.Core.Tests", "Acr.Core.Tests\Acr.Core.Tests.csproj", "{E120CB9A-049E-4A7A-B592-C313A9B384A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acr.Rx.Tests", "Acr.Rx.Tests\Acr.Rx.Tests.csproj", "{59EC9564-97C7-42FD-8EDC-AAB601C26406}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23C8A8F3-F591-4D26-89BA-0B9CA66A7C75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23C8A8F3-F591-4D26-89BA-0B9CA66A7C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23C8A8F3-F591-4D26-89BA-0B9CA66A7C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23C8A8F3-F591-4D26-89BA-0B9CA66A7C75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CD76D31-3028-4813-9119-19A2674A4924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CD76D31-3028-4813-9119-19A2674A4924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CD76D31-3028-4813-9119-19A2674A4924}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CD76D31-3028-4813-9119-19A2674A4924}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62D1AABE-5432-4434-8324-1C843FA6AFB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62D1AABE-5432-4434-8324-1C843FA6AFB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62D1AABE-5432-4434-8324-1C843FA6AFB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62D1AABE-5432-4434-8324-1C843FA6AFB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA43A7ED-9B83-42A3-90A5-058FEA27C5F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA43A7ED-9B83-42A3-90A5-058FEA27C5F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA43A7ED-9B83-42A3-90A5-058FEA27C5F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA43A7ED-9B83-42A3-90A5-058FEA27C5F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FB80449-A5FB-447E-BF96-C6619998831F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FB80449-A5FB-447E-BF96-C6619998831F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FB80449-A5FB-447E-BF96-C6619998831F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FB80449-A5FB-447E-BF96-C6619998831F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E120CB9A-049E-4A7A-B592-C313A9B384A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E120CB9A-049E-4A7A-B592-C313A9B384A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E120CB9A-049E-4A7A-B592-C313A9B384A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E120CB9A-049E-4A7A-B592-C313A9B384A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59EC9564-97C7-42FD-8EDC-AAB601C26406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59EC9564-97C7-42FD-8EDC-AAB601C26406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59EC9564-97C7-42FD-8EDC-AAB601C26406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59EC9564-97C7-42FD-8EDC-AAB601C26406}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
