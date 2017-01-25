@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Reactive;
 using System.Reactive.Linq;
+using Acr.Core;
 
 
-namespace Acr.Core
+namespace Acr.Rx
 {
     public static class NpcExtensions
     {
@@ -12,7 +14,8 @@ namespace Acr.Core
         {
             var p = This.GetPropertyInfo(expression);
             return Observable
-                .FromEventPattern<PropertyChangedEventArgs>(This, "PropertyChanged")
+                .FromEventPattern<PropertyChangedEventArgs>(This, nameof(INotifyPropertyChanged.PropertyChanged))
+                .StartWith(new EventPattern<PropertyChangedEventArgs>(This, new PropertyChangedEventArgs(p.Name)))
                 .Where(x => x.EventArgs.PropertyName == p.Name)
                 .Select(x =>
                 {
@@ -41,8 +44,5 @@ namespace Acr.Core
                     property.SetValue(npc, value);
                 });
         }
-
-
-
     }
 }
