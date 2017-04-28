@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -13,16 +14,14 @@ namespace Acr.Core.ComponentModel
 
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+            => this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 
         protected virtual void OnPropertyChanged<T>(Expression<Func<T>> expression)
         {
             var member = expression.Body as MemberExpression;
             if (member == null)
-                throw new ArgumentException("");
+                throw new ArgumentException("Expression is not a MemberExpression");
 
             this.OnPropertyChanged(member.Member.Name);
         }
@@ -30,7 +29,7 @@ namespace Acr.Core.ComponentModel
 
         protected virtual bool SetProperty<T>(ref T property, T value, [CallerMemberName] string propertyName = null)
         {
-            if (Object.Equals(property, value))
+            if (EqualityComparer<T>.Default.Equals(property, value))
                 return false;
 
             property = value;

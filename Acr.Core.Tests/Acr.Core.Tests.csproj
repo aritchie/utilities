@@ -62,9 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionQueueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TaskQueueTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Acr.Core\Acr.Core.csproj">

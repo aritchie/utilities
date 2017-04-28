@@ -25,6 +25,12 @@ namespace Acr.Rx
         }
 
 
+        public static IObservable<TSender> WhenAnyPropertyChanged<TSender>(this TSender This) where TSender : INotifyPropertyChanged
+            => Observable
+                .FromEventPattern<PropertyChangedEventArgs>(This, nameof(INotifyPropertyChanged.PropertyChanged))
+                .Select(x => This);
+
+
         public static void ApplyMaxLengthConstraint<T>(this T npc, Expression<Func<T, string>> expression, int maxLength) where T : INotifyPropertyChanged
         {
             var property = npc.GetPropertyInfo(expression);
